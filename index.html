@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Circles</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdxZVVkg5Qw6dp3nvQ7-5katPDFL8TEZw&callback=initMap">
+    </script>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    <script>
+      // This example creates circles on the map, representing populations in North
+      // America.
+      $.get('./OutputData.json', function(data){
+         const map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: {lat: 37.090, lng: -95.712},
+            mapTypeId: 'terrain'
+         });
+
+         for (let i = 0; i < data.length; i++) {
+            let marker = new google.maps.Marker({
+               position: {'lat': data[i]['latitude'], 'lng': data[i]['longitude']},
+               map: map
+
+            });
+         }
+      });
+
+    </script>
+
+  </body>
+</html>
