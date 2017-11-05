@@ -24,9 +24,10 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdxZVVkg5Qw6dp3nvQ7-5katPDFL8TEZw&callback=initMap">
     </script>
     <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous">
+    </script>
     <script>
       // This example creates circles on the map, representing populations in North
       // America.
@@ -38,12 +39,25 @@
          });
 
          for (let i = 0; i < data.length; i++) {
-            let marker = new google.maps.Marker({
-               position: {'lat': data[i]['latitude'], 'lng': data[i]['longitude']},
-               map: map
+             console.log(data[i]['sentiment']);
 
-            });
+             const cityCircle = new google.maps.Circle({
+                strokeColor: getColor(data[i]['sentiment']),
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: getColor(data[i]['sentiment']),
+                fillOpacity: 0.35,
+                map: map,
+                center: {'lat': data[i]['latitude'], 'lng': data[i]['longitude']},
+                radius: 90000
+             });
          }
+
+         function getColor(value){
+            //value from 0 to 1
+            let hue=(value*120).toString(10);
+            return ["hsl(",hue,",100%,50%)"].join("");
+          }
       });
 
     </script>

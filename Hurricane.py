@@ -40,7 +40,7 @@ for row in table:
         text = text[index+2:]
     text = re.sub(r'http\S+', '', text)
 
-    sentiment = TextBlob(text).sentiment.polarity
+    sentiment = (TextBlob(text).sentiment.polarity + 1.0) / 2.0
     output.append({'sentiment': sentiment, 'latitude': lat_lng[0] + random.randrange(-1, 1) * 0.1, 'longitude': lat_lng[1] + random.randrange(-1, 1) * 0.1})
 
 with open('OutputData.json', 'w') as f:
