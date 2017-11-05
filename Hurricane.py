@@ -7,7 +7,7 @@ from textblob import TextBlob
 table = []
 output = []
 
-with open('stream__hurricanemaria1(test).json', 'r') as data_file:
+with open('stream__hurricanemaria1.json', 'r') as data_file:
     for line in data_file:
         table.append(json.loads(line))
 i = 1
