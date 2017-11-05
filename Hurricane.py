@@ -13,10 +13,6 @@ with open('stream__hurricanemaria1.json', 'r') as data_file:
 i = 1
 cities = dict()
 for row in table:
-    tim = row['created_at']
-    index = tim.find('+')
-    tim = tim[:index-1:]
-
     location = row['user']['location']
     if location is None:
         continue
@@ -44,7 +40,7 @@ for row in table:
     text = re.sub(r'http\S+', '', text)
 
     sentiment = (TextBlob(text).sentiment.polarity + 1.0) / 2.0
-    output.append({'sentiment': sentiment, 'latitude': lat_lng[0], 'longitude': lat_lng[1], 'time_stamp': tim})
+    output.append({'sentiment': sentiment, 'latitude': lat_lng[0], 'longitude': lat_lng[1]})
 
 with open('OutputData.json', 'w') as f:
     f.write(json.dumps(output))
