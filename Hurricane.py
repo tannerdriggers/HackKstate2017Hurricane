@@ -32,6 +32,9 @@ for row in table:
             lat_lng = geocoder.google(location).latlng
             if not lat_lng:
                 lat_lng = (0.0, 0.0)
+            else:
+                lat_lng[0] = lat_lng[0] + random.randrange(-1, 1) * 0.1
+                lat_lng[1] = lat_lng[1] + random.randrange(-1, 1) * 0.1
             cities[location] = lat_lng
 
     text = row['text']
@@ -41,7 +44,7 @@ for row in table:
     text = re.sub(r'http\S+', '', text)
 
     sentiment = (TextBlob(text).sentiment.polarity + 1.0) / 2.0
-    output.append({'sentiment': sentiment, 'latitude': lat_lng[0] + random.randrange(-1, 1) * 0.1, 'longitude': lat_lng[1] + random.randrange(-1, 1) * 0.1})
+    output.append({'sentiment': sentiment, 'latitude': lat_lng[0], 'longitude': lat_lng[1], 'time_stamp': tim})
 
 with open('OutputData.json', 'w') as f:
     f.write(json.dumps(output))
